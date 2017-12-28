@@ -10,24 +10,35 @@ Spring Sleuth &amp; OpenTracing demo
 ### ZipKin Server
 http://localhost:9411
 
-### NoteApp
-- GET http://localhost:8090/hystrix/notes
+### Note Gateway
+#### Notes
 - GET http://localhost:8090/notes
 - GET http://localhost:8090/notes/{id}
 - DELETE http://localhost:8090/notes/{id}
-- POST http://localhost:8090/
+- POST http://localhost:8090/notes
 with body:
 ```
 {
     "noteMessage": "My Message"
 }
 ```
+#### Reminders
+- GET http://localhost:8090/reminders
+- GET http://localhost:8090/reminders/{id}
+- DELETE http://localhost:8090/reminders/{id}
+- POST http://localhost:8090/reminders
+with body:
+```
+{
+    tbd
+}
+```
 
-### NoteBackend
+### Note App
 - GET http://localhost:8080/notes
 - GET http://localhost:8080/notes/{id}
 - DELETE http://localhost:8080/notes/{id}
-- POST http://localhost:8080/
+- POST http://localhost:8080/notes
 with body:
 ```
 {

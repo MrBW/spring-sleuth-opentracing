@@ -1,6 +1,9 @@
 note-app:
   hostport: localhost:8080
   uri: http://${note-app.hostport}
+reminder:
+  hostport: localhost:8099
+  uri: http://${reminder.hostport}
 
 server:
   port: 8090
@@ -39,3 +42,23 @@ spring:
       # =====================================
       # Reminder
       # =====================================
+      - id: reminders_by_id
+        uri: ${reminder.uri}
+        predicates:
+        - Path=/reminders/{id}
+        - Method=GET
+      - id: reminders
+        uri: ${reminder.uri}
+        predicates:
+        - Path=/reminders
+        - Method=GET
+      - id: reminders_post_new_reminder
+        uri: ${reminder.uri}
+        predicates:
+        - Path=/reminders
+        - Method=POST
+      - id: reminders_delete_by_id
+        uri: ${reminder.uri}
+        predicates:
+        - Path=/reminders/{id}
+        - Method=DELETE

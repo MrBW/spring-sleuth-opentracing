@@ -1,15 +1,20 @@
 version: '3'
 services:
-  note-app:
-    container_name: note-app
-    build: note/
+  note-gateway:
+    container_name: note-gateway
+    build: note-gateway/
     ports:
       - "8090:8090"
-  note-backend:
-    container_name: note-backend
-    build: note-backend/
+  note-app:
+    container_name: note-app
+    build: note-app/
     ports:
       - "8080:8080"
+  reminder:
+    container_name: reminder
+    build: reminder/
+    ports:
+      - "8099:8099"
   zipkin:
     container_name: zipkin
     build: zipkin/

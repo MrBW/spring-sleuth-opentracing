@@ -43,6 +43,6 @@
 	</dependencies>
 
 	<build>
-		<finalName>note</finalName>
+		<finalName>note-gateway</finalName>
 	</build>
 </project>

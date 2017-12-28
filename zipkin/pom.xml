@@ -10,7 +10,7 @@
 	<name>zipkin</name>
 	<description>Demo project for Spring Boot</description>
 
-	// Zipkin doesn't work with Boot 2.0, only 1.5.x
+	<!--Zipkin doesn't work with Boot 2.0, only 1.5.x -->
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
