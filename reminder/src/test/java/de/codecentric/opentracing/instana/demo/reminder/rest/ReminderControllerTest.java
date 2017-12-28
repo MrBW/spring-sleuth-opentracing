@@ -23,6 +23,7 @@ import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doThrow;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -81,7 +82,7 @@ public class ReminderControllerTest {
         ReminderEntity reminderEntity = new ReminderEntity(reminder.getNoteReferenceId(), reminder.getRemindDateTime());
         reminderEntity.setId(99l);
 
-        given(reminderRepoMock.save(Matchers.any(ReminderEntity.class))).willReturn(reminderEntity);
+        given(reminderRepoMock.save(any(ReminderEntity.class))).willReturn(reminderEntity);
 
         mockMvc.perform(post("/reminders")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -103,7 +104,7 @@ public class ReminderControllerTest {
     public void deleteReminder_Badcase() throws Exception {
         int idToDelete = 1;
 
-        doThrow(new RuntimeException()).when(reminderRepoMock).delete(Matchers.any(Long.class));
+        doThrow(new RuntimeException()).when(reminderRepoMock).deleteById(any(Long.class));
 
         mockMvc.perform(delete("/reminders/" + idToDelete)).andExpect(status().isBadRequest());
     }

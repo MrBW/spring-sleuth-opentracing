@@ -1,16 +1,17 @@
 package de.codecentric.opentracing.instana.demo.reminder.rest;
 
 import de.codecentric.opentracing.instana.demo.reminder.dto.Reminder;
+import de.codecentric.opentracing.instana.demo.reminder.persistence.ReminderEntity;
+import de.codecentric.opentracing.instana.demo.reminder.persistence.ReminderRepo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.sleuth.Span;
 import org.springframework.cloud.sleuth.Tracer;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import de.codecentric.opentracing.instana.demo.reminder.persistence.ReminderEntity;
-import de.codecentric.opentracing.instana.demo.reminder.persistence.ReminderRepo;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -30,18 +31,18 @@ public class ReminderController {
 
     @GetMapping("/reminders/{id}")
     public ResponseEntity<Reminder> getNoteById(@PathVariable(value = "id") Long id) {
-        ReminderEntity remindEntity = reminderRepo.findOne(id);
+        Optional<ReminderEntity> remindEntity = reminderRepo.findById(id);
 
-        if (remindEntity == null) {
+        if (remindEntity.isPresent()) {
 
-            // OpenTracing / Sleuth
-            logEvent("reminder not found by id: " + id);
-
-            return ResponseEntity.notFound().build();
+            logEvent("reminder found by id: " + id);
+            tagSpan(remindEntity.get());
+            return ResponseEntity.ok().body(new Reminder(remindEntity.get().getNoteReferenceId(), remindEntity.get().getRemindDateTime()));
         }
-        logEvent("reminder found by id: " + id);
-        tagSpan(remindEntity);
-        return ResponseEntity.ok().body(new Reminder(remindEntity.getNoteReferenceId(), remindEntity.getRemindDateTime()));
+        // OpenTracing / Sleuth
+        logEvent("reminder not found by id: " + id);
+
+        return ResponseEntity.notFound().build();
 
     }
 
@@ -94,7 +95,7 @@ public class ReminderController {
     @DeleteMapping("reminders/{id}")
     public ResponseEntity<String> deleteReminder(@PathVariable(value = "id") Long id) {
         try {
-            reminderRepo.delete(id);
+            reminderRepo.deleteById(id);
 
             // OpenTracing / Sleuth
             logEvent("deleted: " + id);

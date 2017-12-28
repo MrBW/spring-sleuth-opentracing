@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -42,11 +43,11 @@ public class ReminderRepoTest {
         entityManager.flush();
 
         // when
-        ReminderEntity foundEntityById = reminderRepo.findOne(persistedEntity.getId());
+        Optional<ReminderEntity> foundEntityById = reminderRepo.findById(persistedEntity.getId());
 
         //then
-        assertThat(foundEntityById.getNoteReferenceId(), is(referencedNoteId));
-        assertThat(foundEntityById.getRemindDateTime(), is(localDateTime));
+        assertThat(foundEntityById.get().getNoteReferenceId(), is(referencedNoteId));
+        assertThat(foundEntityById.get().getRemindDateTime(), is(localDateTime));
 
     }
 
@@ -59,7 +60,7 @@ public class ReminderRepoTest {
         int totalSizeBeforeDelete = reminderRepo.findAll().size();
 
         // when
-        reminderRepo.delete(persistedEntity.getId());
+        reminderRepo.deleteById(persistedEntity.getId());
         int totalSizeAfterDelete = reminderRepo.findAll().size();
 
         //then

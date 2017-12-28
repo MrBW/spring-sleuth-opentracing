@@ -1,0 +1,41 @@
+note-app:
+  hostport: localhost:8080
+  uri: http://${note-app.hostport}
+
+server:
+  port: 8090
+spring:
+  application:
+    name: note-gateway
+  zipkin:
+    base-url: http://localhost:9411/
+spring:
+  cloud:
+    gateway:
+      routes:
+      # =====================================
+      # Notes
+      # =====================================
+      - id: notes_by_id
+        uri: ${note-app.uri}
+        predicates:
+        - Path=/notes/{id}
+        - Method=GET
+      - id: notes
+        uri: ${note-app.uri}
+        predicates:
+        - Path=/notes
+        - Method=GET
+      - id: notes_post_new_note
+        uri: ${note-app.uri}
+        predicates:
+        - Path=/notes
+        - Method=POST
+      - id: notes_delete_by_id
+        uri: ${note-app.uri}
+        predicates:
+        - Path=/notes/{id}
+        - Method=DELETE
+      # =====================================
+      # Reminder
+      # =====================================
