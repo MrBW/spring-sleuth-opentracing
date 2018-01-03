@@ -17,3 +17,6 @@ hs_err_pid*
 derby.log
 maven-archiver*
 target/
+
+# INSTANA agent env file, used by docker-compose
+instana.key

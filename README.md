@@ -1,4 +1,4 @@
-# spring-sleuth-opentracing 
+# spring-sleuth-opentracing
 ![Travis build](https://travis-ci.org/MrBW/spring-sleuth-opentracing.svg?branch=master) [![codecov](https://codecov.io/gh/MrBW/spring-sleuth-opentracing/branch/master/graph/badge.svg)](https://codecov.io/gh/MrBW/spring-sleuth-opentracing)<br>
 Spring Sleuth &amp; OpenTracing demo
 
@@ -47,5 +47,6 @@ with body:
 ```
 
 ## Start using docker-compose
+* create ``ìnstana.key```file under ```/docker_base_image/instana.key``` and paste your personal INSTANA agent key
 * build all projects ```$ ./mvnw clean package```
 * start up: ```$ docker-compose up --build```

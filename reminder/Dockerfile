@@ -1,8 +1,8 @@
-FROM openjdk:8
+FROM instana_base
 
 COPY target/reminder.jar /usr/local/bin
 WORKDIR /usr/local/bin
 
-CMD ["java", "-jar", "reminder.jar"]
-
 EXPOSE 8099
+
+CMD ["/usr/local/bin/enable_instana.sh", "reminder.jar"]

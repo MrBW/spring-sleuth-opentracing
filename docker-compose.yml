@@ -1,22 +1,33 @@
 version: '3'
 services:
+  docker_base_image:
+    build: docker_base_image/
+    image: instana_base
   note-gateway:
     container_name: note-gateway
     build: note-gateway/
     ports:
       - "8090:8090"
+    depends_on:
+      - docker_base_image
   note-app:
     container_name: note-app
     build: note-app/
     ports:
       - "8080:8080"
+    depends_on:
+      - docker_base_image
   reminder:
     container_name: reminder
     build: reminder/
     ports:
       - "8099:8099"
+    depends_on:
+      - docker_base_image
   zipkin:
     container_name: zipkin
     build: zipkin/
     ports:
       - "9411:9411"
+    depends_on:
+      - docker_base_image

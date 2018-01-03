@@ -1,8 +1,8 @@
-FROM openjdk:8
+FROM instana_base
 
 COPY target/note-gateway.jar /usr/local/bin
 WORKDIR /usr/local/bin
 
-CMD ["java", "-jar", "note-gateway.jar"]
+CMD ["/usr/local/bin/enable_instana.sh", "note-gateway.jar"]
 
 EXPOSE 8090
