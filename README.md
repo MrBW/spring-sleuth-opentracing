@@ -6,6 +6,9 @@ Spring Sleuth &amp; OpenTracing demo
 ### - draft -
 ![Architecture](/docs/NoteApp.png)
 
+## INSTANA dashboard
+![INSTANA](/docs/instana.png)
+
 ## Endpoints
 ### ZipKin Server
 http://localhost:9411
@@ -47,6 +50,8 @@ with body:
 ```
 
 ## Start using docker-compose
+### build in INSTANA support
 * create ```instana.key```file under ```/docker_base_image/instana.key``` and paste your personal INSTANA agent key
+### build and run project
 * build all projects ```$ ./mvnw clean package```
 * start up: ```$ docker-compose up --build```
