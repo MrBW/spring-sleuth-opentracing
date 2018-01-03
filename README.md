@@ -47,6 +47,6 @@ with body:
 ```
 
 ## Start using docker-compose
-* create ``ìnstana.key```file under ```/docker_base_image/instana.key``` and paste your personal INSTANA agent key
+* create ```instana.key```file under ```/docker_base_image/instana.key``` and paste your personal INSTANA agent key
 * build all projects ```$ ./mvnw clean package```
 * start up: ```$ docker-compose up --build```
